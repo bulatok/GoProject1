@@ -1,2 +1,2 @@
 # GoProject1
-go projects for some brother..
+go projects for good brother..
