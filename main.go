@@ -7,27 +7,29 @@ import (
 	"os"
 )
 
-func IsDoteGit(s string) bool {
+func IgnoreDirs(s string) bool {
 	return (s == ".git" || s == "pkg")
 }
 
 const way = "../../"
-
+func Govno(tabs int){
+	for i := 0; i < tabs; i++{
+		for j:=0; j < 4; j++{
+			fmt.Printf(" ")
+		}
+	}
+}
 func recurs(entry []os.DirEntry, sway string, tabs int) {
 	for _, v := range entry{
-		if IsDoteGit(v.Name()){
+		if IgnoreDirs(v.Name()){
 			continue
-		} // checking that file is not .git
-
-		for i := 0; i < tabs; i++{
-			for j:=0; j < 4; j++{
-				fmt.Printf(" ")
-			}
 		}
+
+		Govno(tabs)
+
 		fmt.Printf("%s\n", v.Name())
 
 		if v.IsDir() == true{
-			//fmt.Printf("/")
 			nxt, _ := os.ReadDir(sway + "/" + v.Name())
 			tabs += 1
 			recurs(nxt, sway + "/" + v.Name(), tabs)
@@ -38,13 +40,9 @@ func recurs(entry []os.DirEntry, sway string, tabs int) {
 
 
 func main() {
-	//g, _ := os.ReadDir("../../pkg")
-	//for _, v := range(g){
-	//	fmt.Println(v.Name())
-	//}
 
 	start, _ := os.ReadDir(way)
-	recurs(start, way, 0)
+	recurs(start, way, 1)
 
 
 	//d, err := os.ReadDir(way)

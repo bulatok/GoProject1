@@ -1,2 +1,4 @@
 # GoProject1
-go projects for good brother..
+
+---------------------
+Вывод в OutputData.txt
