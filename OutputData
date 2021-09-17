@@ -1,21 +1,35 @@
 $ go run main.go
-├───.gitignore
-├───bin
-    ├───dlv-dap.exe
-    ├───dlv.exe
-    ├───go-outline.exe
-    ├───gomodifytags.exe
-    ├───gopkgs.exe
-    ├───goplay.exe
-    ├───gopls.exe
-    ├───gotests.exe
-    ├───impl.exe
-    ├───myfiles
-    ├───myfiles.exe
-    └───staticcheck.exe
-└───src
-    └───myfiles
-        ├───OutputData
-        ├───README.md
-        ├───go.mod
-        └───main.go
+├───dockerfile (75b)
+├───hw1.md (4621b)
+├───main.go (352b)
+├───main_test.go (1865b)
+└───testdata (empty)
+    ├───project (empty)
+        ├───file.txt (19b)
+        └───gopher.png (70372b)
+    ├───static (empty)
+        ├───a_lorem (empty)
+            ├───dolor.txt (empty)
+            ├───gopher.png (70372b)
+            └───ipsum (empty)
+                └───gopher.png (70372b)
+        ├───css (empty)
+            └───body.css (28b)
+        ├───empty.txt (empty)
+        ├───html (empty)
+            └───index.html (57b)
+        ├───js (empty)
+            └───site.js (10b)
+        └───z_lorem (empty)
+            ├───dolor.txt (empty)
+            ├───gopher.png (70372b)
+            └───ipsum (empty)
+                └───gopher.png (70372b)
+    ├───zline (empty)
+        ├───empty.txt (empty)
+        └───lorem (empty)
+            ├───dolor.txt (empty)
+            ├───gopher.png (70372b)
+            └───ipsum (empty)
+                └───gopher.png (70372b)
+    └───zzfile.txt (empty)
