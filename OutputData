@@ -1,20 +1,21 @@
-    .gitignore
-    bin
-        dlv-dap.exe
-        dlv.exe
-        go-outline.exe
-        gomodifytags.exe
-        gopkgs.exe
-        goplay.exe
-        gopls.exe
-        gotests.exe
-        impl.exe
-        myfiles
-        myfiles.exe
-        staticcheck.exe
-    src
-        myfiles
-            OutputData
-            README.md
-            go.mod
-            main.go
+$ go run main.go
+├───.gitignore
+├───bin
+    ├───dlv-dap.exe
+    ├───dlv.exe
+    ├───go-outline.exe
+    ├───gomodifytags.exe
+    ├───gopkgs.exe
+    ├───goplay.exe
+    ├───gopls.exe
+    ├───gotests.exe
+    ├───impl.exe
+    ├───myfiles
+    ├───myfiles.exe
+    └───staticcheck.exe
+└───src
+    └───myfiles
+        ├───OutputData
+        ├───README.md
+        ├───go.mod
+        └───main.go
