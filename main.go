@@ -8,10 +8,13 @@ import (
 )
 
 func IgnoreDirs(s string) bool {
-	return (s == ".git" || s == "pkg")
+	return (s == ".git")
 }
-
-const way = "../../"
+func ToString(x int64) string{
+	return fmt.Sprintf("%s", x)
+}
+//const way = "../../"
+const way = "C:/Users/kutlu/OneDrive/Рабочий стол/hw1_tree"
 func Govno(tabs int, last bool){
 	for i := 0; i < tabs-1; i++{
 		for j:=0; j < 4; j++{
@@ -37,10 +40,14 @@ func recurs(entry []os.DirEntry, sway string, tabs int) {
 			continue
 		}
 
-		//fmt.Printf("%d %d", i, len(entry))
 		Govno(tabs, (i == len(entry) - 1))
 
-		fmt.Printf("%s\n", v.Name())
+		infa, _ := v.Info()
+		if infa.Size() == 0{
+			fmt.Printf("%s (empty) \n", v.Name())
+		}else{
+			fmt.Printf("%s (%db) \n", v.Name(), infa.Size())
+		}
 
 		if v.IsDir() == true{
 			nxt, _ := os.ReadDir(sway + "/" + v.Name())
