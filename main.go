@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	//"log"
-	//"sort"
+	"sort"
 	"os"
 )
 
@@ -12,20 +12,33 @@ func IgnoreDirs(s string) bool {
 }
 
 const way = "../../"
-func Govno(tabs int){
-	for i := 0; i < tabs; i++{
+func Govno(tabs int, last bool){
+	for i := 0; i < tabs-1; i++{
 		for j:=0; j < 4; j++{
 			fmt.Printf(" ")
 		}
 	}
+	if last == false {
+		fmt.Printf("├")
+	} else{
+		fmt.Printf("└")
+	}
+		for j:=0; j < 3; j++ {
+		fmt.Printf("─")
+	}
 }
 func recurs(entry []os.DirEntry, sway string, tabs int) {
-	for _, v := range entry{
+	// чтобы вывести всё было отсортированным dude
+	sort.Slice(entry, func(i, j int) bool{
+		return entry[i].Name() < entry[j].Name()
+	})
+	for i, v := range entry{
 		if IgnoreDirs(v.Name()){
 			continue
 		}
 
-		Govno(tabs)
+		//fmt.Printf("%d %d", i, len(entry))
+		Govno(tabs, (i == len(entry) - 1))
 
 		fmt.Printf("%s\n", v.Name())
 
