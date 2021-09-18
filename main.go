@@ -2,67 +2,91 @@ package main
 
 import (
 	"fmt"
-	//"log"
 	"os"
+	"bytes"
 	"sort"
+	"strings"
 )
 
+var tabs = 1
+const ParentPath = "C:/Users/kutlu/OneDrive/Рабочий стол/hw1_tree/"
+
 func IgnoreDirs(s string) bool {
-	return (false) // конкретно сейчас нечего игнорить
-}
-func ToString(x int64) string {
-	return fmt.Sprintf("%s", x)
+	baned := []string{
+		".md",
+		"dockerfile",
+	}
+	for _, v := range baned {
+		if strings.HasSuffix(s, v) {
+			return true
+		}
+	}
+	return false
 }
 
-const way = "C:/Users/kutlu/OneDrive/Рабочий стол/hw1_tree"
-
-func Govno(tabs int, last bool) {
+func Govno(tabs int, last bool, out *bytes.Buffer) {
 	for i := 0; i < tabs-1; i++ {
 		for j := 0; j < 4; j++ {
-			fmt.Printf(" ")
+			out.Write([]byte(" "))
 		}
 	}
 	if last == false {
-		fmt.Printf("├")
+		out.Write([]byte("├"))
 	} else {
-		fmt.Printf("└")
+		out.Write([]byte("└"))
 	}
 	for j := 0; j < 3; j++ {
-		fmt.Printf("─")
+		out.Write([]byte("─"))
 	}
 }
-func recurs(entry []os.DirEntry, sway string, tabs int) {
-	// чтобы вывести всё было отсортированным dude
+func dirTree(out *bytes.Buffer, way string, printFiles bool) error {
+	entry, _ := os.ReadDir(way)
+	// чтобы вывести всё в отсортированным виде
 	sort.Slice(entry, func(i, j int) bool {
 		return entry[i].Name() < entry[j].Name()
 	})
+
+
 	for i, v := range entry {
+		// игнорить определенные расширения файлов
 		if IgnoreDirs(v.Name()) {
 			continue
 		}
 
-		Govno(tabs, (i == len(entry)-1))
 
 		// вывод имени файла + его размер
 		infa, _ := v.Info()
-		if infa.Size() == 0 {
-			fmt.Printf("%s (empty) \n", v.Name())
-		} else {
-			fmt.Printf("%s (%db) \n", v.Name(), infa.Size())
+		if v.IsDir() == true {
+			Govno(tabs, (i == len(entry)-1) || (i == 0 && len(entry) == 1), out)
+			fmt.Fprintf(out, "%s \n", v.Name())
+		} else if printFiles == true {
+			Govno(tabs, (i == len(entry)-1) || (i == 0 && len(entry) == 1), out)
+			if infa.Size() == 0 {
+				fmt.Fprintf(out, "%s (empty)\n", v.Name())
+			} else {
+				fmt.Fprintf(out, "%s (%db)\n", v.Name(), infa.Size())
+			}
 		}
 
+
 		if v.IsDir() == true {
-			nxt, _ := os.ReadDir(sway + "/" + v.Name())
 			tabs += 1
-			recurs(nxt, sway+"/"+v.Name(), tabs)
+			dirTree(out, way+"/"+v.Name(), printFiles)
 			tabs -= 1
 		}
 	}
+	return nil
 }
-
 func main() {
-
-	start, _ := os.ReadDir(way)
-	recurs(start, way, 1)
-
+	var out bytes.Buffer
+	if !(len(os.Args) == 2 || len(os.Args) == 3) {
+		panic("usage go run main.go . [-f]")
+	}
+	path := ParentPath + os.Args[1]
+	printFiles := len(os.Args) == 3 && os.Args[2] == "-f"
+	err := dirTree(&out, path, printFiles)
+	fmt.Println(out.String())
+	if err != nil{
+		panic(err.Error())
+	}
 }
