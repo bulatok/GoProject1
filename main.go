@@ -1,9 +1,9 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"os"
-	"bytes"
 	"sort"
 	"strings"
 )
@@ -24,7 +24,7 @@ func IgnoreDirs(s string) bool {
 	return false
 }
 
-func Govno(tabs int, last bool, out *bytes.Buffer) {
+func ForOutput(tabs int, last bool, out *bytes.Buffer) {
 	for i := 0; i < tabs-1; i++ {
 		for j := 0; j < 4; j++ {
 			out.Write([]byte(" "))
@@ -57,10 +57,10 @@ func dirTree(out *bytes.Buffer, way string, printFiles bool) error {
 		// вывод имени файла + его размер
 		infa, _ := v.Info()
 		if v.IsDir() == true {
-			Govno(tabs, (i == len(entry)-1) || (i == 0 && len(entry) == 1), out)
+			ForOutput(tabs, (i == len(entry)-1) || (i == 0 && len(entry) == 1), out)
 			fmt.Fprintf(out, "%s \n", v.Name())
 		} else if printFiles == true {
-			Govno(tabs, (i == len(entry)-1) || (i == 0 && len(entry) == 1), out)
+			ForOutput(tabs, (i == len(entry)-1) || (i == 0 && len(entry) == 1), out)
 			if infa.Size() == 0 {
 				fmt.Fprintf(out, "%s (empty)\n", v.Name())
 			} else {
