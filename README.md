@@ -1,4 +1,4 @@
-# GoProject1
+# ScriptOnGolang
 
 ---------------------------
 
