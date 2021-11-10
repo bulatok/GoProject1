@@ -34,7 +34,6 @@ const testFullResult = `├───project
         └───ipsum
             └───gopher.png (70372b)
 └───zzfile.txt (empty)
-
 `
 const cur = "C:/Users/kutlu/OneDrive/Рабочий стол/hw1_tree/"
 

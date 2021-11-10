@@ -3,13 +3,14 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"log"
 	"os"
 	"sort"
 	"strings"
 )
 
 var tabs = 1
-const ParentPath = "C:/Users/kutlu/OneDrive/Рабочий стол/hw1_tree/"
+const ParentPath = "./testdata"
 
 func IgnoreDirs(s string) bool {
 	baned := []string{
@@ -26,9 +27,7 @@ func IgnoreDirs(s string) bool {
 
 func ForOutput(tabs int, last bool, out *bytes.Buffer) {
 	for i := 0; i < tabs-1; i++ {
-		for j := 0; j < 4; j++ {
-			out.Write([]byte(" "))
-		}
+		out.Write([]byte(fmt.Sprintf("\t")))
 	}
 	if last == false {
 		out.Write([]byte("├"))
@@ -40,7 +39,10 @@ func ForOutput(tabs int, last bool, out *bytes.Buffer) {
 	}
 }
 func dirTree(out *bytes.Buffer, way string, printFiles bool) error {
-	entry, _ := os.ReadDir(way)
+	entry, err := os.ReadDir(way)
+	if err != nil{
+		log.Fatal(err)
+	}
 	// чтобы вывести всё в отсортированным виде
 	sort.Slice(entry, func(i, j int) bool {
 		return entry[i].Name() < entry[j].Name()
