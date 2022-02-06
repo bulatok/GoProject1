@@ -1,4 +1,4 @@
-# ScriptOnGolang
+# Script on golang
 
 ---------------------------
 
